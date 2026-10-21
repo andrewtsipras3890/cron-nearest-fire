@@ -44,3 +44,10 @@ flag to switch it.
 A second edge: an expression like `0 0 30 2 *` (Feb 30) can never match. The
 walker will run for 367 days and then raise `CronError` rather than loop
 forever.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
